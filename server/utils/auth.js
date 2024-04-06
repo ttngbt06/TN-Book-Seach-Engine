@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { GraphQLError } = require("graphql");
 
 // set token secret and expiration date
 const secret = 'mysecretsshhhhh';
@@ -36,4 +37,12 @@ module.exports = {
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
+    //function for unauthentication routes
+  AuthenticationError: new GraphQLError("Unable to authenticate user.", {
+    extensions: {
+      code: "UNAUTHENTICATED",
+    },
+  }),
+
+
 };
